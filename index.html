@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7c6ce5"><link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png"><link rel="stylesheet" href="style.css">
+<title>Agenda EF</title>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">Agenda <b>EF</b></div>
+  <nav>
+    <button class="active" data-page="inicio">🏠 <span>Inicio</span></button>
+    <button data-page="tareas">📝 <span>Tareas</span></button>
+    <button data-page="calendario">📅 <span>Calendario</span></button>
+    <button data-page="materias">📚 <span>Materias</span></button>
+    <button data-page="materiales">🎒 <span>Materiales</span></button>
+    <button data-page="calificaciones">📊 <span>Calificaciones</span></button>
+  </nav>
+</aside>
+
+<main>
+<section id="inicio" class="page active">
+<header><div><h1>¡Hola! 👋</h1><p id="dateText"></p></div><button class="primary" onclick="openTask()">＋ Nueva tarea</button></header>
+<div class="stats">
+ <article><strong id="pending">0</strong><small>Tareas pendientes</small></article>
+ <article><strong id="soon">0</strong><small>Entregas próximas</small></article>
+ <article><strong id="subjectsN">0</strong><small>Materias</small></article>
+ <article><strong id="materialsN">0</strong><small>Materiales</small></article>
+</div>
+<div class="columns">
+ <article class="card"><h2>📌 Pendientes</h2><div id="homeTasks"></div></article>
+ <article class="card"><h2>⚡ Acciones rápidas</h2>
+  <div class="quick"><button onclick="openTask()">📝 Agregar tarea</button><button onclick="openMaterial()">🎒 Agregar material</button><button onclick="showPage('calificaciones')">📊 Ver promedio</button></div>
+ </article>
+</div>
+</section>
+
+<section id="tareas" class="page">
+<header><div><h1>📝 Tareas</h1><p>Organiza todas tus entregas.</p></div><button class="primary" onclick="openTask()">＋ Nueva tarea</button></header>
+<div class="toolbar"><input id="taskSearch" placeholder="Buscar tarea..." oninput="render()"><select id="taskFilter" onchange="render()"><option value="all">Todas</option><option value="pending">Pendientes</option><option value="done">Terminadas</option></select></div>
+<div id="taskList" class="list"></div>
+</section>
+
+<section id="calendario" class="page">
+<header><div><h1>📅 Calendario</h1><p>Consulta tus entregas por fecha.</p></div></header>
+<div class="card calendarCard"><div class="calendarHead"><button onclick="month(-1)">←</button><h2 id="monthTitle"></h2><button onclick="month(1)">→</button></div><div id="calendar" class="calendar"></div></div>
+</section>
+
+<section id="materias" class="page">
+<header><div><h1>📚 Materias</h1><p>Tus clases y profesores.</p></div><button class="primary" onclick="openSubject()">＋ Nueva materia</button></header>
+<div id="subjectList" class="list"></div>
+</section>
+
+<section id="materiales" class="page">
+<header><div><h1>🎒 Materiales</h1><p>Ten control de lo que necesitas.</p></div><button class="primary" onclick="openMaterial()">＋ Nuevo material</button></header>
+<div id="materialList" class="list"></div>
+</section>
+
+<section id="calificaciones" class="page">
+<header><div><h1>📊 Calificaciones</h1><p>Registra tus notas y promedio.</p></div><button class="primary" onclick="openGrade()">＋ Nueva calificación</button></header>
+<div class="average card">Promedio registrado <strong id="average">—</strong></div>
+<div id="gradeList" class="list"></div>
+</section>
+</main>
+</div>
+
+<div id="modal" class="modal"><div class="modalBox"><button class="close" onclick="closeModal()">×</button><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+<script src="app.js"></script>
+</body>
+</html>
